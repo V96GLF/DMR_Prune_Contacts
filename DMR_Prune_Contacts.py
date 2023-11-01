@@ -33,7 +33,7 @@ def create_long_scrollable_list():
     clear_frame(frame)
     frame.pack(side=tk.LEFT, anchor='nw', expand=True, padx=10, pady=10)
 
-    canvas = tk.Canvas(frame, height=600)
+    canvas = tk.Canvas(frame, height=570)
     canvas.pack(side=tk.LEFT, fill=tk.BOTH, expand=True, padx=10, pady=10)
 
     scrollbar = tk.Scrollbar(frame, command=canvas.yview)
@@ -52,10 +52,16 @@ def create_long_scrollable_list():
         # Output the country_list and country_count_list to the list box
         var = tk.IntVar()
         count=country_count_dict[country]
-        output_string = country + ' (' + str(count) + ')'
+        output_string = (country + ' (' + str(count) + ')').ljust(50)
         country_select_dict[country] = False # All countries initially not selected
         callback = functools.partial(on_checkbox_click, country)
-        checkbox = tk.Checkbutton(background_frame, text=output_string, command=callback, variable=var)
+        checkbox = tk.Checkbutton(
+            background_frame,
+            text=output_string,
+            command=callback,
+            bg="white",
+            variable=var
+            )
         checkbox.pack(anchor="w", padx=5)
 
 def open_input_file():
@@ -160,7 +166,7 @@ def write_output_file():
     
 if __name__ == "__main__":
     
-    csvFileName = "Retevis-RT3S.csv"
+    csvFileName = "user.csv"
     csvFileOut="contacts.csv"
 
     returned_values = {} # Dictionary used for returning values from button press
